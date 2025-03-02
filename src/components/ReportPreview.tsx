@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, ArrowLeft, Users, FileSpreadsheet, List, Plus, X } from "lucide-react";
+import { Send, ArrowLeft, Users, FileSpreadsheet, Image, List, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,7 +22,7 @@ interface ReportPreviewProps {
 const ReportPreview = ({ report, onSend, onBack }: ReportPreviewProps) => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([]);
   const [newGroup, setNewGroup] = useState("");
-  const [activeTab, setActiveTab] = useState("summary");
+  const [activeTab, setActiveTab] = useState("images");
   
   // Predefined groups (in a real app, these would come from an API)
   const availableGroups = [
@@ -90,9 +90,13 @@ const ReportPreview = ({ report, onSend, onBack }: ReportPreviewProps) => {
           </p>
         </div>
         
-        <Tabs defaultValue="summary" className="w-full" onValueChange={setActiveTab}>
+        <Tabs defaultValue="images" className="w-full" onValueChange={setActiveTab}>
           <div className="px-6 pt-2">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="images" className="text-sm">
+                <Image size={16} className="mr-2" />
+                Images
+              </TabsTrigger>
               <TabsTrigger value="summary" className="text-sm">
                 <List size={16} className="mr-2" />
                 Summary
@@ -103,6 +107,32 @@ const ReportPreview = ({ report, onSend, onBack }: ReportPreviewProps) => {
               </TabsTrigger>
             </TabsList>
           </div>
+          
+          <TabsContent value="images" className="p-6 min-h-80">
+            <div className="space-y-6">
+              <h3 className="text-lg font-medium mb-3">Report Images</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {report.images && report.images.map((image, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="rounded-lg overflow-hidden border"
+                  >
+                    <div className="bg-muted p-2 border-b">
+                      <h4 className="text-sm font-medium">Image {index + 1}</h4>
+                    </div>
+                    <img 
+                      src={image} 
+                      alt={`Report image ${index + 1}`} 
+                      className="w-full h-auto object-cover"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
           
           <TabsContent value="summary" className="p-6 min-h-80">
             <div className="space-y-6">

@@ -1,5 +1,10 @@
 
 export interface Report {
+  files: {
+    ban: string;
+    ton: string;
+  };
+  images: string[];
   filename: string;
   summary: {
     metrics: Array<{

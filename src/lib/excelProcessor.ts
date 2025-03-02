@@ -1,17 +1,30 @@
 
 import { Report } from "@/types/report";
 
-export async function processExcelFile(file: File): Promise<Report> {
+export async function processExcelFile(files: { ban: File | null, ton: File | null }): Promise<Report> {
   return new Promise((resolve, reject) => {
-    // In a real application, this would process the Excel file
+    // In a real application, this would process the Excel files
     // For this demo, we'll simulate processing with a timeout
     
     setTimeout(() => {
       try {
+        // Mock image URLs (in a real app, these would be generated from the Excel files)
+        const mockImages = [
+          "https://source.unsplash.com/random/800x600/?chart",
+          "https://source.unsplash.com/random/800x600/?graph",
+          "https://source.unsplash.com/random/800x600/?excel",
+          "https://source.unsplash.com/random/800x600/?report"
+        ];
+        
         // This is mock data - in a real application,
-        // you would parse the Excel file and generate real data
+        // you would parse the Excel files and generate real data
         const mockReport: Report = {
-          filename: file.name,
+          files: {
+            ban: files.ban?.name || "",
+            ton: files.ton?.name || ""
+          },
+          images: mockImages,
+          filename: `${files.ban?.name || "Unknown"} & ${files.ton?.name || "Unknown"}`,
           summary: {
             metrics: [
               { label: "Total Records", value: "1,245" },
