@@ -6,6 +6,7 @@ export interface Report {
   };
   images: string[];
   filename: string;
+  title: string;
   summary: {
     metrics: Array<{
       label: string;
