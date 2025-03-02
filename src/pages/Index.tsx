@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FileSpreadsheet, Upload, ArrowRight, Check, AlertCircle, Image } from "lucide-react";
+import { FileSpreadsheet, Upload, ArrowRight, Check, AlertCircle, Image, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
